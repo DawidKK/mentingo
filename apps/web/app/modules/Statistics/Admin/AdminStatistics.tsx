@@ -8,6 +8,7 @@ import { useLanguageStore } from "~/modules/Dashboard/Settings/Language/Language
 import { AvgScoreAcrossAllQuizzesChart } from "~/modules/Statistics/Admin/components/AvgScoreAcrossAllQuizzessChart";
 import { ConversionsAfterFreemiumLessonChart } from "~/modules/Statistics/Admin/components/ConversionsAfterFreemiumLessonChart";
 import { EnrollmentChart } from "~/modules/Statistics/Admin/components/EnrollmentChart";
+import { DropoutPredictionWidget } from "~/modules/Statistics/Admin/dropout/DropoutPredictionWidget";
 import { useDownloadSummaryReport } from "~/modules/Statistics/Admin/hooks/useDownloadSummaryReport";
 
 import { CourseCompletionPercentageChart, FiveMostPopularCoursesChart } from "./components";
@@ -126,6 +127,7 @@ export const AdminStatistics = () => {
         </Button>
       </div>
       <div className="grid grid-cols-1 gap-y-4 md:grid-cols-2 md:gap-x-4 md:gap-y-6 xl:h-full xl:grid-cols-4 xl:grid-rows-[minmax(min-content,_auto)]">
+        <DropoutPredictionWidget />
         <FiveMostPopularCoursesChart
           data={statistics?.fiveMostPopularCourses}
           isLoading={isLoading}

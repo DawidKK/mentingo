@@ -98,3 +98,38 @@ uv run pytest
 ```bash
 uv run ruff check .
 ```
+
+## Hackathon demo flow (Admin analytics)
+
+1. Start services:
+
+```bash
+# terminal 1
+cd apps/dropout-predictor
+uv run uvicorn dropout_predictor.main:app --reload
+
+# terminal 2
+cd apps/api
+pnpm start:dev
+
+# terminal 3
+cd apps/web
+pnpm dev
+```
+
+2. Open `https://app.lms.localhost/admin/analytics`.
+3. In "Dropout Prediction Demo":
+   - switch between the two seeded demo users,
+   - click tracker buttons to simulate behavior,
+   - click "Get prediction" to fetch model output via `/api/dropout/prediction`.
+4. If predictor is down/slow, API returns fallback metadata without breaking the page.
+
+## Monorepo dev startup
+
+`apps/dropout-predictor` now has a workspace `dev` script, so root `pnpm dev` can run predictor alongside `api` and `web`.
+
+Predictor dev command:
+
+```bash
+pnpm --filter=dropout-predictor dev
+```
