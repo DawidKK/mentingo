@@ -25,8 +25,8 @@ vi.mock("./useDropoutPrediction", () => ({
       prediction: {
         userId: "user-kavon",
         risk: { score: 0.72, level: "high", label: "High Dropout Risk" },
-        keyDrivers: [{ feature: "days_since_last_activity" }],
-        protectiveSignals: [{ feature: "avg_quiz_score" }],
+        keyDrivers: [{ feature: "days_since_last_activity", label: "Recent inactivity", value: 9 }],
+        protectiveSignals: [{ feature: "avg_quiz_score", label: "Quiz performance", value: 0.71 }],
         modelInsights: { model: "Logistic Regression", topFactors: [] },
       },
     },
@@ -38,12 +38,13 @@ describe("DropoutPredictionWidget", () => {
     window.localStorage.clear();
   });
 
-  it("renders widget and prediction details", () => {
+  it("renders polished cockpit and prediction details", () => {
     render(<DropoutPredictionWidget />);
 
-    expect(screen.getByText("Dropout Prediction Demo")).toBeInTheDocument();
-    expect(screen.getByText(/Risk score:/)).toBeInTheDocument();
-    expect(screen.getByText(/Risk level:/)).toBeInTheDocument();
-    expect(screen.getByText(/Source:/)).toBeInTheDocument();
+    expect(screen.getByText("Dropout Prediction Cockpit")).toBeInTheDocument();
+    expect(screen.getByText(/Risk gauge/)).toBeInTheDocument();
+    expect(screen.getByText(/Driver impact breakdown/)).toBeInTheDocument();
+    expect(screen.getByText(/Kavon vs Lawson/)).toBeInTheDocument();
+    expect(screen.getByText(/High Dropout Risk/)).toBeInTheDocument();
   });
 });

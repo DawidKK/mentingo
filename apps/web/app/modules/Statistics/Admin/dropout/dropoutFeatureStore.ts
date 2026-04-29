@@ -9,26 +9,28 @@ export type DropoutFeatures = {
 };
 
 export const HIGH_RISK_SEED: DropoutFeatures = {
-  completion_percentage: 0.12,
-  avg_quiz_score: 0.44,
-  num_failed_attempts: 4,
-  days_since_last_activity: 10,
-  days_since_enrollment: 25,
-  lessons_completed: 2,
-  quiz_attempts_count: 3,
+  completion_percentage: 0.06,
+  avg_quiz_score: 0.39,
+  num_failed_attempts: 5,
+  days_since_last_activity: 14,
+  days_since_enrollment: 30,
+  lessons_completed: 1,
+  quiz_attempts_count: 2,
 };
 
 export const MEDIUM_RISK_SEED: DropoutFeatures = {
-  completion_percentage: 0.48,
-  avg_quiz_score: 0.68,
-  num_failed_attempts: 2,
-  days_since_last_activity: 4,
-  days_since_enrollment: 20,
-  lessons_completed: 8,
+  completion_percentage: 0.33,
+  avg_quiz_score: 0.58,
+  num_failed_attempts: 3,
+  days_since_last_activity: 7,
+  days_since_enrollment: 21,
+  lessons_completed: 4,
   quiz_attempts_count: 6,
 };
 
 const STORAGE_PREFIX = "dropout_features::";
+const STORAGE_SEED_VERSION_PREFIX = "dropout_seed_version::";
+const SEED_VERSION = "v3-force-clear-high-split";
 
 function clampFloat(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
@@ -54,6 +56,10 @@ function keyForUser(userId: string): string {
   return `${STORAGE_PREFIX}${userId}`;
 }
 
+function seedVersionKeyForUser(userId: string): string {
+  return `${STORAGE_SEED_VERSION_PREFIX}${userId}`;
+}
+
 function safeRead(userId: string): DropoutFeatures | null {
   if (typeof window === "undefined") return null;
   const raw = window.localStorage.getItem(keyForUser(userId));
@@ -75,6 +81,15 @@ export function saveFeatures(userId: string, features: DropoutFeatures): Dropout
 }
 
 export function ensureFeatures(userId: string, seed: DropoutFeatures): DropoutFeatures {
+  if (typeof window !== "undefined") {
+    const currentVersion = window.localStorage.getItem(seedVersionKeyForUser(userId));
+    if (currentVersion !== SEED_VERSION) {
+      const seeded = saveFeatures(userId, seed);
+      window.localStorage.setItem(seedVersionKeyForUser(userId), SEED_VERSION);
+      return seeded;
+    }
+  }
+
   const existing = safeRead(userId);
   if (existing) return existing;
   return saveFeatures(userId, seed);

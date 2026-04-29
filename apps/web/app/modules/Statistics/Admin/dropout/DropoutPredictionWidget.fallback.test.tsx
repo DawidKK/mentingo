@@ -32,9 +32,8 @@ describe("DropoutPredictionWidget fallback", () => {
     window.localStorage.clear();
   });
 
-  it("renders fallback message when predictor unavailable", () => {
+  it("renders graceful fallback warning", () => {
     render(<DropoutPredictionWidget />);
-    expect(screen.getByText(/Prediction currently unavailable/)).toBeInTheDocument();
-    expect(screen.getByText(/Source:/)).toBeInTheDocument();
+    expect(screen.getByText(/Prediction model temporarily unavailable/)).toBeInTheDocument();
   });
 });
