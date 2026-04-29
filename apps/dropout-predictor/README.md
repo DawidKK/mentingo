@@ -1,18 +1,18 @@
 # Mentingo: AI-Powered Dropout Prediction for LMS
 
-## 1. Project Overview
+## 1. Project Overview 🚀
 
 Mentingo is a modern Learning Management System enhanced with **Machine Learning** to proactively predict student dropout risk.
 
 At the core of this hackathon solution is a **Logistic Regression** model that analyzes student learning behavior and estimates the probability of dropout in real time. The platform combines:
 
-- behavior tracking signals from the learning journey,
-- explainable risk scoring,
-- actionable analytics for admins.
+- behavior tracking signals from the learning journey 📈,
+- explainable risk scoring 🧠,
+- actionable analytics for admins 🎯.
 
 This creates an **AI-driven retention cockpit** that helps teams move from reactive reporting to predictive intervention.
 
-## 2. Problem We Solve
+## 2. Problem We Solve ⚠️
 
 - Online education platforms often detect disengagement too late.
 - By the time teams react, many learners have already dropped off.
@@ -22,21 +22,21 @@ This creates an **AI-driven retention cockpit** that helps teams move from react
 
 ### Goal
 
-**Discover dropout risk early to improve course completion and maximize learning ROI.**
+**Discover dropout risk early to improve course completion and maximize learning ROI. ✅**
 
-## 3. Business Impact
+## 3. Business Impact 💼
 
 Mentingo’s dropout prediction capability delivers measurable value for education businesses and training teams:
 
-- **Higher completion rates:** early intervention increases the chance learners finish courses.
-- **Better ROI on content production:** more learners complete programs built with significant content investment.
-- **Revenue protection:** reducing learner churn lowers lost subscription and course income.
-- **Smarter operations:** instructors and admins focus support where it has highest impact.
-- **Executive-ready insights:** human-friendly analytics turn ML output into clear business decisions.
+- **Higher completion rates 📚:** early intervention increases the chance learners finish courses.
+- **Better ROI on content production 💰:** more learners complete programs built with significant content investment.
+- **Revenue protection 🛡️:** reducing learner churn lowers lost subscription and course income.
+- **Smarter operations ⚙️:** instructors and admins focus support where it has highest impact.
+- **Executive-ready insights 📊:** human-friendly analytics turn ML output into clear business decisions.
 
 In short, Mentingo transforms raw learner activity into an **actionable retention strategy** powered by explainable AI.
 
-## 4. How to Run
+## 4. How to Run 🛠️
 
 - Install dependencies and complete setup:
   - `pnpm setup:unix` (macOS/Linux) or `pnpm setup:win` (Windows)
@@ -44,15 +44,15 @@ In short, Mentingo transforms raw learner activity into an **actionable retentio
   - `pnpm dev`
 - `pnpm dev` is updated to run all required apps, including the new `dropout-predictor` service, so web, API, and ML prediction are available together.
 
-## 5. Model Details
+## 5. Model Details 🤖
 
-### Dropout Predictor Structure
+### Dropout Predictor Structure 🧩
 
 - **Feature tracking layer (Web):** captures learner behavior signals (progress, quiz performance, activity, lesson completion).
 - **Prediction API layer (apps/api):** standard endpoint that receives features and forwards prediction requests.
 - **ML service layer (apps/dropout-predictor):** runs inference and returns explainable risk output (`risk`, `keyDrivers`, `protectiveSignals`, `modelInsights`).
 
-### Model Used
+### Model Used 🧠
 
 - **Algorithm:** Logistic Regression
 - **Why this model:** fast, reliable, and explainable for binary classification (dropout vs non-dropout)
@@ -65,7 +65,7 @@ In short, Mentingo transforms raw learner activity into an **actionable retentio
   - `lessons_completed`
   - `quiz_attempts_count`
 
-### Regularization and Training Setup
+### Regularization and Training Setup ⚖️
 
 - **Scaling:** `StandardScaler` is applied before model training.
 - **Regularization:** ElasticNet-style regularization using `solver="saga"` and `l1_ratio=0.5`.
@@ -73,7 +73,7 @@ In short, Mentingo transforms raw learner activity into an **actionable retentio
 - **Model selection priority:** highest **F2** (recall-focused), then **Recall**, then **ROC-AUC**.
 - **Recommended C:** `0.01`.
 
-### Evaluation Metrics
+### Evaluation Metrics 📏
 
 | C      | F2 Score | Recall | ROC-AUC |
 | ------ | -------: | -----: | ------: |
@@ -88,7 +88,7 @@ In short, Mentingo transforms raw learner activity into an **actionable retentio
   - **Recall:** measures how many actual dropouts we correctly identify.
   - **ROC-AUC:** measures overall ranking quality of risk scores.
 
-### Confusion Matrix (Best Model, C=0.01)
+### Confusion Matrix (Best Model, C=0.01) 🔍
 
 | Actual \\ Predicted | No Dropout (0) | Dropout (1) |
 | ------------------- | -------------: | ----------: |
